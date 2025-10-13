@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBlog — Share Your Stories</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="home">
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">FusionStories</a>
+
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'posts' %}">Posts</a>
+                {% if username %}
+                <a href="{% url 'create' %}">Create</a>
+                {% endif %}
+            </nav>
+
+            <div class="auth-buttons">
+                {% if username %}
+                    <a href="{% url 'profile' %}">
+                        <img src="{{ profile_img }}" alt="Profile" class="profile-pic">
+                    </a>
+                    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-btn">Login</a>
+                    <a href="{% url 'register' %}" class="register-btn">Register</a>
+                {% endif %}
+            </div>
+
+            <button id="menu-btn" class="mobile-menu-btn">Menu</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to FusionStories</h1>
+        <p>A place to share your thoughts, ideas, and experiences with the world.</p>
+        <a href="{% url 'posts' %}" class="read-blogs-btn">Read Blogs</a>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="latest-posts">
+        <h2>Latest Posts</h2>
+        <div class="posts-grid">
+            {% for post in latest_posts %}
+            <div class="post-card">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% else %}
+                <img src="https://picsum.photos/600/400?random={{ forloop.counter }}" alt="{{ post.title }}">
+                {% endif %}
+                <h3>{{ post.title }}</h3>
+                <a href="{% url 'read' post.pk %}" class="read-more">Read More →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 FusionStories. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

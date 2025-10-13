@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} — FusionStories</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="page">
+
+    <header class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">FusionStories</a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'posts' %}">Posts</a>
+                {% if username %}<a href="{% url 'create' %}">Create</a>{% endif %}
+            </nav>
+            <div class="auth-buttons">
+                {% if username %}
+                <a href="{% url 'profile' %}"><img src="{{ profile_img }}" class="profile-pic"></a>
+                <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="login-btn">Login</a>
+                <a href="{% url 'register' %}" class="register-btn">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="post-page">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="post-header-img">
+        {% endif %}
+        <h1>{{ post.title }}</h1>
+        <p>By {{ post.user.name }} • {{ post.date|date:"F j, Y" }}</p>
+        <div class="post-content">
+            {{ post.content|safe }}
+        </div>
+
+        <section class="author-info">
+            {% if post.user.img %}
+            <img src="{{ post.user.img.url }}" class="profile-pic-small">
+            {% else %}
+            <img src="{% static 'default_profile.png' %}" class="profile-pic-small">
+            {% endif %}
+            <h4>{{ post.user.name }}</h4>
+            <p>{{ post.user.desc }}</p>
+        </section>
+    </main>
+
+</body>
+</html>

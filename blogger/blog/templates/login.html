@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — FusionStories</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="auth-page">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{% url 'home' %}" class="logo">FusionStories</a>
+            <p>Welcome back! Please login to your account.</p>
+        </div>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label>Username</label>
+            <input name="username" type="text" required>
+
+            <label>Password</label>
+            <input name="password" type="password" required>
+
+            <div class="extra-options">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <p class="auth-footer">
+            Don’t have an account? <a href="{% url 'register' %}">Register</a>
+        </p>
+    </div>
+
+</body>
+</html>

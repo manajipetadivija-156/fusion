@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — FusionStories</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="auth-page">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="{% url 'home' %}" class="logo">FusionStories</a>
+            <p>Create your free account and start sharing your stories!</p>
+        </div>
+        <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Username</label>
+            <input name="username" type="text" required>
+
+            <label>Email</label>
+            <input name="email" type="email" required>
+
+            <label>Password</label>
+            <input name="password" type="password" required>
+
+            <label>Confirm Password</label>
+            <input name="confirm_password" type="password" required>
+
+            <label>Bio</label>
+            <textarea name="desc" rows="3" placeholder="Tell us about yourself"></textarea>
+
+            <label>Profile Image</label>
+            <input type="file" name="img" accept="image/*">
+
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+        <p class="auth-footer">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+
+</body>
+</html>
